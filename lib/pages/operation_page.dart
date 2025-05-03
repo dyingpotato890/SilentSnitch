@@ -1,10 +1,23 @@
 import 'package:dynamic_background/domain/models/painter_data/lava_painter_data.dart';
 import 'package:dynamic_background/widgets/views/dynamic_bg.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:silent_snitch/services/snitch.dart';
+
 import 'package:silent_snitch/widgets/file_selector.dart';
 
-class OperationPage extends StatelessWidget {
+class OperationPage extends StatefulWidget {
   const OperationPage({super.key});
+
+  @override
+  State<OperationPage> createState() => _OperationPageState();
+}
+
+class _OperationPageState extends State<OperationPage> {
+  late String followersPath;
+  late String followingPath;
+
+  Snitch obj = Snitch();
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +99,13 @@ class OperationPage extends StatelessWidget {
                           FileSelector(
                             icon: Icons.people_outline,
                             label: 'Select Following List',
-                            filename: 'following_1.json',
-                            onTap: () {
-                              print('button 1 pressed');
+                            filename: 'following.json',
+                            onTap: () async {
+                              FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                              if (result != null) {
+                                followingPath = result.files.single.path!;                               // print('File Path: ${filePath}');
+                              }
                             },
                           ),
 
@@ -99,8 +116,12 @@ class OperationPage extends StatelessWidget {
                             icon: Icons.person_add_outlined,
                             label: 'Select Followers List',
                             filename: 'followers_1.json',
-                            onTap: () {
-                              print('button 2 pressed');
+                            onTap: () async {
+                              FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                              if (result != null) {
+                                followersPath = result.files.single.path!;                               // print('File Path: ${filePath}');
+                              }
                             },
                           ),
                         ],
@@ -112,8 +133,13 @@ class OperationPage extends StatelessWidget {
 
                   // Submit Button
                   ElevatedButton(
-                    onPressed: () {
-                      print('find the SOB');
+                    onPressed: () async {
+                      Map<String, List<String>> remove = await obj.findUnfollowed(
+                        followersPath: followersPath,
+                        followingPath: followingPath
+                      );
+
+                      print(remove);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
