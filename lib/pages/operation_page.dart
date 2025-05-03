@@ -2,8 +2,8 @@ import 'package:dynamic_background/domain/models/painter_data/lava_painter_data.
 import 'package:dynamic_background/widgets/views/dynamic_bg.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:silent_snitch/pages/display_page.dart';
 import 'package:silent_snitch/services/snitch.dart';
-
 import 'package:silent_snitch/widgets/file_selector.dart';
 
 class OperationPage extends StatefulWidget {
@@ -18,6 +18,8 @@ class _OperationPageState extends State<OperationPage> {
   late String followingPath;
 
   Snitch obj = Snitch();
+
+  late Map<String, List<String>> remove;
 
   @override
   Widget build(BuildContext context) {
@@ -134,12 +136,16 @@ class _OperationPageState extends State<OperationPage> {
                   // Submit Button
                   ElevatedButton(
                     onPressed: () async {
-                      Map<String, List<String>> remove = await obj.findUnfollowed(
+                      remove = await obj.findUnfollowed(
                         followersPath: followersPath,
                         followingPath: followingPath
                       );
 
-                      print(remove);
+                      Navigator.push(
+                          // ignore: use_build_context_synchronously
+                          context,
+                          MaterialPageRoute(builder: (context) => DisplayPage(unfollowers: remove)),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,

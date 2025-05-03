@@ -31,7 +31,7 @@ class Snitch {
     // Find Unfollowers
     Map<String, List<String>> unfollow = {
       "Username": [],
-      "Link": []
+      "Link": [],
     };
 
     for (var i in followingList) {
