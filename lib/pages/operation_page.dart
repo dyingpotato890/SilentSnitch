@@ -1,9 +1,9 @@
-import 'package:dynamic_background/domain/models/painter_data/lava_painter_data.dart';
-import 'package:dynamic_background/widgets/views/dynamic_bg.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:silent_snitch/pages/display_page.dart';
+import 'package:silent_snitch/pages/how_to_page.dart';
 import 'package:silent_snitch/services/snitch.dart';
+import 'package:silent_snitch/widgets/background.dart';
 import 'package:silent_snitch/widgets/file_selector.dart';
 
 class OperationPage extends StatefulWidget {
@@ -27,36 +27,7 @@ class _OperationPageState extends State<OperationPage> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          DynamicBg(
-            duration: const Duration(seconds: 35),
-            painterData: LavaPainterData(
-              width: 250.0,
-              widthTolerance: 75.0,
-              growAndShrink: true,
-              growthRate: 10.0,
-              growthRateTolerance: 5.0,
-              blurLevel: 25.0,
-              numBlobs: 5,
-              backgroundColor: Color.fromRGBO(88, 81, 219, 1),
-              colors: [
-                Color.fromRGBO(88, 81, 219, 1),
-                Color.fromRGBO(131, 58, 180, 1),
-                Color.fromRGBO(193, 53, 132, 1),
-                Color.fromRGBO(225, 48, 108, 1),
-                Color.fromRGBO(253, 29, 29, 1),
-                Color.fromRGBO(245, 96, 64, 1),
-                Color.fromRGBO(247, 119, 55, 1),
-                Color.fromRGBO(252, 175, 69, 1),
-                Color.fromRGBO(255, 220, 128, 1),
-              ],
-              allSameColor: false,
-              fadeBetweenColors: true,
-              changeColorsTogether: false,
-              speed: 20.0,
-              speedTolerance: 5.0,
-            ),
-            child: Container(),
-          ),
+          Background(),
 
           // Main
           SafeArea(
@@ -221,10 +192,16 @@ class _OperationPageState extends State<OperationPage> {
                         ),
                       ),
                       onPressed: () {
-                        // TODO: Implement
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                            (context) => HowToPage()
+                          )
+                        );
                       },
 
-                      child: Text('How To Use?'),
+                      child: Text('How To Use SilentSnitch'),
                     ),
                   ),
                 ],
