@@ -31,7 +31,7 @@ class _DisplayPageState extends State<DisplayPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get usernames from the map
+    // Get Usernames And Links
     final List<String> usernames = widget.unfollowers["Username"] ?? [];
     final List<String> links = widget.unfollowers["Link"] ?? [];
     
@@ -142,7 +142,7 @@ class _DisplayPageState extends State<DisplayPage> {
                             color: Colors.white.withAlpha(51),
                             borderRadius: BorderRadius.circular(24),
                           ),
-                          
+
                           child: ListView.builder(
                             itemCount: usernames.length,
                             itemBuilder: (context, index) {
