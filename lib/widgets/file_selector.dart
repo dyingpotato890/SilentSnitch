@@ -16,6 +16,8 @@ class FileSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.sizeOf(context);
+
     return Column(
       children: [
         Row(
@@ -23,7 +25,7 @@ class FileSelector extends StatelessWidget {
           children: [
             Icon(icon, color: Colors.black, size: 20),
 
-            const SizedBox(width: 8),
+            SizedBox(width: media.width * 0.02),
 
             Text(
               label,
@@ -37,7 +39,7 @@ class FileSelector extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 12),
+        SizedBox(height: media.height * 0.018),
 
         Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
@@ -60,6 +62,7 @@ class FileSelector extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
+              
               InkWell(
                 onTap: onTap,
                 child: Container(

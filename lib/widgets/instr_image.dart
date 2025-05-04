@@ -14,6 +14,8 @@ class InstrImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.sizeOf(context);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(10),
@@ -29,6 +31,7 @@ class InstrImage extends StatelessWidget {
           ),
         ],
       ),
+
       child: Column(
         children: [
           Row(
@@ -59,9 +62,9 @@ class InstrImage extends StatelessWidget {
                   ),
                 ),
               ),
-          
-              const SizedBox(width: 20),
-          
+
+              SizedBox(width: media.width * 0.043),
+
               Expanded(
                 child: Text(
                   instr,
@@ -79,9 +82,7 @@ class InstrImage extends StatelessWidget {
 
           const SizedBox(height: 17),
 
-          Image.asset(
-            imgPath,    
-          ),
+          Image.asset(imgPath),
         ],
       ),
     );

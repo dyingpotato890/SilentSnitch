@@ -5,17 +5,13 @@ import 'package:url_launcher/url_launcher.dart';
 class DisplayPage extends StatefulWidget {
   final Map<String, List<String>> unfollowers;
 
-  const DisplayPage({
-    super.key,
-    required this.unfollowers,
-  });
+  const DisplayPage({super.key, required this.unfollowers});
 
   @override
   State<DisplayPage> createState() => _DisplayPageState();
 }
 
 class _DisplayPageState extends State<DisplayPage> {
-
   // URL launcher
   void _launchUrl(String url) async {
     try {
@@ -33,7 +29,9 @@ class _DisplayPageState extends State<DisplayPage> {
     // Get Usernames And Links
     final List<String> usernames = widget.unfollowers["Username"] ?? [];
     final List<String> links = widget.unfollowers["Link"] ?? [];
-    
+
+    var media = MediaQuery.sizeOf(context);
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -44,7 +42,12 @@ class _DisplayPageState extends State<DisplayPage> {
           // Main Content
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 20),
+              padding: EdgeInsets.fromLTRB(
+                media.width * 0.058,
+                media.height * 0.014,
+                media.width * 0.058,
+                media.height * 0.035,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -53,7 +56,10 @@ class _DisplayPageState extends State<DisplayPage> {
                     children: [
                       IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        ),
                       ),
 
                       const Expanded(
@@ -67,21 +73,24 @@ class _DisplayPageState extends State<DisplayPage> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      
-                      const SizedBox(width: 48),
+
+                      SizedBox(width: media.width * 0.1),
                     ],
                   ),
 
-                  const SizedBox(height: 24),
-
+                  SizedBox(height: media.height * 0.028), // 24
                   // Results counter
                   Container(
                     height: 40,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
+
                     child: Center(
                       child: Text(
                         '${usernames.length} Accounts Found',
@@ -92,70 +101,79 @@ class _DisplayPageState extends State<DisplayPage> {
                       ),
                     ),
                   ),
-                  
-                  const SizedBox(height: 16),
-                  
+
+                  SizedBox(height: media.height * 0.018), // 16
                   // Results list
                   Expanded(
-                    child: usernames.isEmpty
-                      // Empty state
-                      ? const Center(
-                          child: Text(
-                            'No unfollowers found',
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        )
-                      // Unfollowers list
-                      : Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withAlpha(51),
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-
-                          child: ListView.builder(
-                            itemCount: usernames.length,
-                            itemBuilder: (context, index) {
-                              final username = usernames[index];
-                              final link = links[index];                            
-                              final hasLink = link.isNotEmpty;
-                              
-                              return GestureDetector(
-                                onTap: hasLink ? () => _launchUrl(links[index]) : null,
-                                
-                                child: Container(
-                                  margin: const EdgeInsets.only(bottom: 12),
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withAlpha(26),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  
-                                  child: Row(
-                                    children: [
-                                      const CircleAvatar(
-                                        backgroundColor: Colors.white24,
-                                        child: Icon(Icons.person, color: Colors.white),
-                                      ),
-
-                                      const SizedBox(width: 16),
-
-                                      Expanded(
-                                        child: Text(
-                                          username,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                    child:
+                        usernames.isEmpty
+                            // Empty state
+                            ? const Center(
+                              child: Text(
+                                'No unfollowers found',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
+                            )
+                            // Unfollowers list
+                            : Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withAlpha(51),
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+
+                              child: ListView.builder(
+                                itemCount: usernames.length,
+                                itemBuilder: (context, index) {
+                                  final username = usernames[index];
+                                  final link = links[index];
+                                  final hasLink = link.isNotEmpty;
+
+                                  return GestureDetector(
+                                    onTap:
+                                        hasLink
+                                            ? () => _launchUrl(links[index])
+                                            : null,
+
+                                    child: Container(
+                                      margin: const EdgeInsets.only(bottom: 12),
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withAlpha(26),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+
+                                      child: Row(
+                                        children: [
+                                          const CircleAvatar(
+                                            backgroundColor: Colors.white24,
+                                            child: Icon(
+                                              Icons.person,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+
+                                          SizedBox(width: media.width * 0.035),
+
+                                          Expanded(
+                                            child: Text(
+                                              username,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                   ),
                 ],
               ),

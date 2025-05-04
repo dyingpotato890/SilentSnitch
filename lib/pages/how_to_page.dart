@@ -8,6 +8,8 @@ class HowToPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.sizeOf(context);
+
     return Stack(
       children: [
         // Background
@@ -16,12 +18,12 @@ class HowToPage extends StatelessWidget {
         // Main Section
         SafeArea(
           child: SingleChildScrollView(
-            // padding: const EdgeInsets.symmetric(
-            //   horizontal: 24.0,
-            //   vertical: 32.0,
-            // ),
-
-            padding: EdgeInsets.fromLTRB(24, 10, 24, 32),
+            padding: EdgeInsets.fromLTRB(
+              media.width * 0.058,
+              media.height * 0.014,
+              media.width * 0.058,
+              media.height * 0.035,
+            ),
 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,13 +51,10 @@ class HowToPage extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    const SizedBox(width: 48),
                   ],
                 ),
 
-
-                const SizedBox(height: 16),
+                SizedBox(height: media.height * 0.018),
 
                 Text(
                   'SilentSnitch lets you track who unfollows you without needing to log in. Follow these two simple steps to get started.',
@@ -67,7 +66,7 @@ class HowToPage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                SizedBox(height: media.height * 0.028),
 
                 // SECTION 1: Getting Your Instagram Data
                 Container(
@@ -76,6 +75,7 @@ class HowToPage extends StatelessWidget {
                     color: Colors.black.withAlpha(77),
                     borderRadius: BorderRadius.circular(12),
                   ),
+
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -83,7 +83,7 @@ class HowToPage extends StatelessWidget {
                         children: [
                           Icon(Icons.download_rounded, color: Colors.white),
 
-                          SizedBox(width: 8),
+                          SizedBox(width: media.width * 0.02),
 
                           Flexible(
                             child: Text(
@@ -100,7 +100,7 @@ class HowToPage extends StatelessWidget {
                         ],
                       ),
 
-                      const SizedBox(height: 16),
+                      SizedBox(height: media.height * 0.018),
 
                       InstrText(
                         step: '1',
@@ -170,7 +170,7 @@ class HowToPage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                SizedBox(height: media.height * 0.028), // 24
 
                 // SECTION 2: Using SilentSnitch App
                 Container(
@@ -179,13 +179,16 @@ class HowToPage extends StatelessWidget {
                     color: Colors.black.withAlpha(77),
                     borderRadius: BorderRadius.circular(12),
                   ),
+
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Icon(Icons.app_shortcut_rounded, color: Colors.white),
-                          SizedBox(width: 8),
+
+                          SizedBox(width: media.width * 0.02),
+
                           Text(
                             'STEP 2: Using SilentSnitch',
                             style: TextStyle(
@@ -199,7 +202,7 @@ class HowToPage extends StatelessWidget {
                         ],
                       ),
 
-                      const SizedBox(height: 16),
+                      SizedBox(height: media.height * 0.018), // 16
 
                       InstrText(
                         step: '1',

@@ -23,6 +23,8 @@ class _OperationPageState extends State<OperationPage> {
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.sizeOf(context);
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -36,11 +38,11 @@ class _OperationPageState extends State<OperationPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 12),
+                  SizedBox(height: media.height * 0.014),
 
                   Image.asset('assets/img/logo.png'),
 
-                  const SizedBox(height: 12),
+                  SizedBox(height: media.height * 0.014),
 
                   const Text(
                     'Find out who unfollowed you',
@@ -52,10 +54,10 @@ class _OperationPageState extends State<OperationPage> {
                     textAlign: TextAlign.center,
                   ),
 
-                  const SizedBox(height: 60),
+                  SizedBox(height: media.height * 0.06),
 
                   SizedBox(
-                    height: 500,
+                    height: media.height * 0.53,
                     child: Expanded(
                       child: Container(
                         padding: const EdgeInsets.all(24),
@@ -109,8 +111,8 @@ class _OperationPageState extends State<OperationPage> {
 
                                   // Submit Button
                                   SizedBox(
-                                    height: 45,
-                                    width: 320,
+                                    height: media.height * 0.046,
+                                    width: media.width * 0.78,
                                     child: ElevatedButton(
                                       onPressed: () async {
                                         remove = await obj.findUnfollowed(
@@ -145,13 +147,7 @@ class _OperationPageState extends State<OperationPage> {
                                           1,
                                         ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                        side: BorderSide(
-                                          width: 1,
-                                          color: Colors.white30,
+                                          borderRadius: BorderRadius.circular(12),
                                         ),
                                         elevation: 0,
                                       ),
@@ -174,7 +170,7 @@ class _OperationPageState extends State<OperationPage> {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  SizedBox(height: media.height * 0.05),
 
                   Center(
                     child: Container(
@@ -183,6 +179,7 @@ class _OperationPageState extends State<OperationPage> {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(width: 1, color: Colors.white30),
                       ),
+
                       child: TextButton(
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(

@@ -12,6 +12,8 @@ class InstrText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.sizeOf(context);
+    
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(10),
@@ -27,6 +29,7 @@ class InstrText extends StatelessWidget {
           ),
         ],
       ),
+
       child: Row(
         children: [
           Container(
@@ -56,7 +59,7 @@ class InstrText extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 20),
+          SizedBox(width: media.width * 0.043),
 
           Expanded(
             child: Text(
