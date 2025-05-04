@@ -38,9 +38,7 @@ class _OperationPageState extends State<OperationPage> {
                 children: [
                   const SizedBox(height: 12),
 
-                  Image.asset(
-                    'assets/img/logo.png',
-                  ),
+                  Image.asset('assets/img/logo.png'),
 
                   const SizedBox(height: 12),
 
@@ -84,10 +82,7 @@ class _OperationPageState extends State<OperationPage> {
 
                                       if (result != null) {
                                         followingPath =
-                                            result
-                                                .files
-                                                .single
-                                                .path!;
+                                            result.files.single.path!;
                                       }
                                     },
                                   ),
@@ -105,10 +100,7 @@ class _OperationPageState extends State<OperationPage> {
 
                                       if (result != null) {
                                         followersPath =
-                                            result
-                                                .files
-                                                .single
-                                                .path!;
+                                            result.files.single.path!;
                                       }
                                     },
                                   ),
@@ -159,7 +151,7 @@ class _OperationPageState extends State<OperationPage> {
                                         ),
                                         side: BorderSide(
                                           width: 1,
-                                          color: Colors.white30
+                                          color: Colors.white30,
                                         ),
                                         elevation: 0,
                                       ),
@@ -185,29 +177,49 @@ class _OperationPageState extends State<OperationPage> {
                   const SizedBox(height: 30),
 
                   Center(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        foregroundColor: WidgetStateColor.resolveWith(
-                          (Set<WidgetState> states) =>
-                              const Color.fromARGB(255, 254, 254, 254),
-                        ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(70),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(width: 1, color: Colors.white30),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                            (context) => HowToPage()
-                          )
-                        );
-                      },
-
-                      child: Text(
-                        'How To Use SilentSnitch',
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontFamily: 'Ubuntu',
-                          fontSize: 18
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HowToPage(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.help_outline_rounded,
+                              color: Colors.black87,
+                              size: 20,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'How To Use SilentSnitch',
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontFamily: 'Ubuntu',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
