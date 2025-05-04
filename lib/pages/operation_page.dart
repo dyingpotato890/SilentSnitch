@@ -201,7 +201,12 @@ class _OperationPageState extends State<OperationPage> {
                         );
                       },
 
-                      child: Text('How To Use SilentSnitch'),
+                      child: Text(
+                        'How To Use SilentSnitch',
+                        style: TextStyle(
+                          fontSize: 18
+                        ),
+                      ),
                     ),
                   ),
                 ],
