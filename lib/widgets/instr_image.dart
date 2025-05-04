@@ -51,6 +51,7 @@ class InstrImage extends StatelessWidget {
                 child: Text(
                   step,
                   style: TextStyle(
+                    fontFamily: 'Ubuntu',
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -65,9 +66,10 @@ class InstrImage extends StatelessWidget {
                 child: Text(
                   instr,
                   style: TextStyle(
+                    fontFamily: 'Ubuntu',
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 16,
                     decoration: TextDecoration.none,
                   ),
                 ),
@@ -75,7 +77,7 @@ class InstrImage extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 17),
 
           Image.asset(
             imgPath,    

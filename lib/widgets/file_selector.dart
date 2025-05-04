@@ -11,7 +11,7 @@ class FileSelector extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.filename,
-    required this.onTap
+    required this.onTap,
   });
 
   @override
@@ -21,25 +21,24 @@ class FileSelector extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              color: Colors.white70,
-              size: 20,
-            ),
+            Icon(icon, color: Colors.black, size: 20),
+
             const SizedBox(width: 8),
+
             Text(
               label,
               style: const TextStyle(
+                fontFamily: 'Ubuntu',
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white70,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
               ),
             ),
           ],
         ),
-        
+
         const SizedBox(height: 12),
-        
+
         Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           decoration: BoxDecoration(
@@ -47,6 +46,7 @@ class FileSelector extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.white30, width: 1),
           ),
+
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -54,7 +54,7 @@ class FileSelector extends StatelessWidget {
                 child: Text(
                   filename,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black87,
                     fontWeight: FontWeight.w500,
                   ),
                   overflow: TextOverflow.ellipsis,

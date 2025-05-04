@@ -36,21 +36,21 @@ class _OperationPageState extends State<OperationPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
-                    'Unfollower Detector',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
+                  const SizedBox(height: 12),
+
+                  Image.asset(
+                    'assets/img/logo.png',
                   ),
 
                   const SizedBox(height: 12),
 
                   const Text(
                     'Find out who unfollowed you',
-                    style: TextStyle(fontSize: 16, color: Colors.white70),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black87,
+                      fontFamily: 'Ubuntu',
+                    ),
                     textAlign: TextAlign.center,
                   ),
 
@@ -108,7 +108,7 @@ class _OperationPageState extends State<OperationPage> {
                                             result
                                                 .files
                                                 .single
-                                                .path!; // print('File Path: ${filePath}');
+                                                .path!;
                                       }
                                     },
                                   ),
@@ -159,13 +159,14 @@ class _OperationPageState extends State<OperationPage> {
                                         ),
                                         side: BorderSide(
                                           width: 1,
-                                          color: Color.fromRGBO(88, 81, 219, 1),
+                                          color: Colors.white30
                                         ),
                                         elevation: 0,
                                       ),
                                       child: const Text(
                                         'FIND UNFOLLOWERS',
                                         style: TextStyle(
+                                          fontFamily: 'Ubuntu',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -204,6 +205,8 @@ class _OperationPageState extends State<OperationPage> {
                       child: Text(
                         'How To Use SilentSnitch',
                         style: TextStyle(
+                          color: Colors.black87,
+                          fontFamily: 'Ubuntu',
                           fontSize: 18
                         ),
                       ),

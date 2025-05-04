@@ -41,7 +41,8 @@ class HowToPage extends StatelessWidget {
                       child: Text(
                         'How To Use SilentSnitch',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontFamily: 'Ubuntu',
+                          fontSize: 20,
                           decoration: TextDecoration.none,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -59,7 +60,8 @@ class HowToPage extends StatelessWidget {
                 Text(
                   'SilentSnitch lets you track who unfollows you without needing to log in. Follow these two simple steps to get started.',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontFamily: 'Ubuntu',
+                    fontSize: 18,
                     decoration: TextDecoration.none,
                     color: Colors.white,
                   ),
@@ -87,7 +89,8 @@ class HowToPage extends StatelessWidget {
                             child: Text(
                               'STEP 1: Download Your Instagram Data',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontFamily: 'Ubuntu',
+                                fontSize: 20,
                                 decoration: TextDecoration.none,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -186,7 +189,8 @@ class HowToPage extends StatelessWidget {
                           Text(
                             'STEP 2: Using SilentSnitch',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontFamily: 'Ubuntu',
+                              fontSize: 20,
                               decoration: TextDecoration.none,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
