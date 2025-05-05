@@ -61,7 +61,7 @@ class _OperationPageState extends State<OperationPage> {
                   
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [Image.asset('assets/img/logo.png', height: 36)],
+                    children: [Image.asset('assets/img/logo - white.png', height: 36)],
                   ),
                 ),
 
@@ -93,7 +93,8 @@ class _OperationPageState extends State<OperationPage> {
                 SizedBox(height: size.height * 0.025),
 
                 // Main content area
-                Expanded(
+                SizedBox(
+                  height: size.height * 0.58,
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
