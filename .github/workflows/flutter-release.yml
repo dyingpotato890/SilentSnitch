@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
 
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +31,7 @@ jobs:
           mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/renamed-apk/silent_snitch.apk
 
       - name: Upload APK
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: release-apk
           path: build/app/outputs/renamed-apk/silent_snitch.apk
