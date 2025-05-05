@@ -33,3 +33,10 @@ jobs:
         with:
           name: release-apk
           path: build/app/outputs/renamed-apk/silent_snitch.apk
+
+      - name: Upload Release APK to GitHub Releases
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/app/outputs/renamed-apk/silent_snitch.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
