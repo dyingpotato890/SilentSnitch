@@ -17,7 +17,7 @@
 A direct download link is provided here:
 
 <p align="center">
-  <a href="https://drive.google.com/file/d/1oExP5McAzG1FhD1G4IzddXD-AAOsHcF9/view?usp=sharing">
+  <a href="https://drive.google.com/file/d/1K6ubQeIMTJWrVTTBefILXZqstrv6oAYU/view?usp=sharing">
     <img src="https://img.shields.io/badge/⬇️ Download%20APK-blue?style=for-the-badge" alt="Download SilentSnitch" />
   </a>
 </p>
