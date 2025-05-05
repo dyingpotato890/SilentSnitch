@@ -251,6 +251,10 @@ class _OperationPageState extends State<OperationPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                               ),
+                              side: BorderSide(
+                                color: Colors.white.withAlpha(51),
+                                width: 0.5,
+                              ),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
