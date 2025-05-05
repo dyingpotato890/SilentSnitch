@@ -14,213 +14,338 @@ class OperationPage extends StatefulWidget {
 }
 
 class _OperationPageState extends State<OperationPage> {
-  late String followersPath;
-  late String followingPath;
+  String? followersPath;
+  String? followingPath;
+  bool isFollowersSelected = false;
+  bool isFollowingSelected = false;
 
-  Snitch obj = Snitch();
+  final Snitch snitch = Snitch();
 
-  late Map<String, List<String>> remove;
+  late Map<String, List<String>> unfollowers;
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Background(),
+      body: Background(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: size.height * 0.03),
 
-          // Main
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 80),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: media.height * 0.014),
-
-                  Image.asset('assets/img/logo.png'),
-
-                  SizedBox(height: media.height * 0.014),
-
-                  const Text(
-                    'Find out who unfollowed you',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black87,
-                      fontFamily: 'Ubuntu',
+                // Logo
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(38),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: Colors.white.withAlpha(77),
+                      width: 1,
                     ),
-                    textAlign: TextAlign.center,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(26),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [Image.asset('assets/img/logo.png', height: 36)],
+                  ),
+                ),
+
+                SizedBox(height: size.height * 0.025),
+
+                // Tagline
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
                   ),
 
-                  SizedBox(height: media.height * 0.06),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withAlpha(102),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
 
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(51),
-                        borderRadius: BorderRadius.circular(24),
+                  child: const Text(
+                    'Find who unfollowed you',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                      fontFamily: 'Ubuntu',
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: size.height * 0.025),
+
+                // Main content area
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 24,
+                    ),
+
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white.withAlpha(46),
+                          Colors.white.withAlpha(20),
+                        ],
                       ),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: Colors.white.withAlpha(51),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withAlpha(39),
+                          blurRadius: 15,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
 
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // Following
-                                FileSelector(
-                                  icon: Icons.people_outline,
-                                  label: 'Select Following List',
-                                  filename: 'following.json',
-                                  onTap: () async {
-                                    FilePickerResult? result =
-                                        await FilePicker.platform.pickFiles();
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Following selector
+                        FileSelector(
+                          icon: Icons.people_alt_rounded,
+                          title: 'Following List',
+                          subtitle:
+                              isFollowingSelected
+                                  ? 'File selected'
+                                  : 'Tap to select following.json',
+                          isSelected: isFollowingSelected,
+                          onTap: () async {
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles();
+                            if (result != null) {
+                              setState(() {
+                                followingPath = result.files.single.path!;
+                                isFollowingSelected = true;
+                              });
+                            }
+                          },
+                        ),
 
-                                    if (result != null) {
-                                      followingPath = result.files.single.path!;
-                                    }
-                                  },
+                        const SizedBox(height: 20),
+
+                        // Divider with text
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Colors.white.withAlpha(51),
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              child: Text(
+                                'AND',
+                                style: TextStyle(
+                                  color: Colors.white.withAlpha(179),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
                                 ),
+                              ),
+                            ),
 
-                                SizedBox(height: media.height * 0.05),
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Colors.white.withAlpha(51),
+                              ),
+                            ),
+                          ],
+                        ),
 
-                                // Followers
-                                FileSelector(
-                                  icon: Icons.person_add_outlined,
-                                  label: 'Select Followers List',
-                                  filename: 'followers_1.json',
-                                  onTap: () async {
-                                    FilePickerResult? result =
-                                        await FilePicker.platform.pickFiles();
+                        const SizedBox(height: 20),
 
-                                    if (result != null) {
-                                      followersPath = result.files.single.path!;
-                                    }
-                                  },
-                                ),
+                        // Followers selector
+                        FileSelector(
+                          icon: Icons.person_add_rounded,
+                          title: 'Followers List',
+                          subtitle:
+                              isFollowersSelected
+                                  ? 'File selected'
+                                  : 'Tap to select followers_1.json',
+                          isSelected: isFollowersSelected,
+                          onTap: () async {
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles();
+                            if (result != null) {
+                              setState(() {
+                                followersPath = result.files.single.path!;
+                                isFollowersSelected = true;
+                              });
+                            }
+                          },
+                        ),
 
-                                SizedBox(height: media.height * 0.09),
+                        SizedBox(height: size.height * 0.07),
 
-                                // Submit Button
-                                SizedBox(
-                                  height: media.height * 0.046,
-                                  width: media.width * 0.78,
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      remove = await obj.findUnfollowed(
-                                        followersPath: followersPath,
-                                        followingPath: followingPath,
+                        // Submit Button
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: ElevatedButton(
+                            onPressed:
+                                (isFollowersSelected && isFollowingSelected)
+                                    ? () async {
+                                      unfollowers = await snitch.findUnfollowed(
+                                        followersPath: followersPath!,
+                                        followingPath: followingPath!,
                                       );
 
+                                      if (!mounted) return;
                                       Navigator.push(
                                         // ignore: use_build_context_synchronously
                                         context,
                                         MaterialPageRoute(
                                           builder:
                                               (context) => DisplayPage(
-                                                unfollowers: remove,
+                                                unfollowers: unfollowers,
                                               ),
                                         ),
                                       );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      foregroundColor: const Color.fromRGBO(
-                                        88,
-                                        81,
-                                        219,
-                                        1,
-                                      ),
-                                      // padding: const EdgeInsets.symmetric(vertical: 16),
-                                      shadowColor: Color.fromRGBO(
-                                        88,
-                                        81,
-                                        219,
-                                        1,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Text(
-                                      'FIND UNFOLLOWERS',
-                                      style: TextStyle(
-                                        fontFamily: 'Ubuntu',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                    }
+                                    : null,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF6C63FF),
+                              foregroundColor: Colors.white,
+                              disabledBackgroundColor: Colors.grey.withAlpha(
+                                77,
+                              ),
+                              disabledForegroundColor: Colors.white.withAlpha(
+                                128,
+                              ),
+                              elevation: 0,
+                              shadowColor: const Color(
+                                0xFF6C63FF,
+                              ).withAlpha(128),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.search, size: 20),
+                                const SizedBox(width: 8),
+                                Text(
+                                  'FIND UNFOLLOWERS',
+                                  style: TextStyle(
+                                    fontFamily: 'Ubuntu',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: size.height * 0.03),
+
+                // Help Button
+                Container(
+                  width: double.infinity,
+
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white.withAlpha(39),
+                        Colors.white.withAlpha(13),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: Colors.white.withAlpha(51),
+                      width: 1,
                     ),
                   ),
 
-                  SizedBox(height: media.height * 0.05),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HowToPage(),
+                        ),
+                      );
+                    },
 
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(70),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(width: 1, color: Colors.white30),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
                       ),
-
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 12,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HowToPage(),
-                            ),
-                          );
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.help_outline_rounded,
-                              color: Colors.black87,
-                              size: 20,
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              'How To Use SilentSnitch',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontFamily: 'Ubuntu',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
                       ),
                     ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.help_outline_rounded,
+                          color: Colors.white.withAlpha(230),
+                          size: 20,
+                        ),
+
+                        const SizedBox(width: 10),
+
+                        Text(
+                          'How To Use Silent Snitch',
+                          style: TextStyle(
+                            color: Colors.white.withAlpha(230),
+                            fontFamily: 'Ubuntu',
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+
+                SizedBox(height: size.height * 0.03),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

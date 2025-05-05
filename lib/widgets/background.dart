@@ -1,41 +1,89 @@
-import 'package:dynamic_background/domain/models/painter_data/lava_painter_data.dart';
-import 'package:dynamic_background/widgets/views/dynamic_bg.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
-  const Background({super.key});
+  final Widget child;
+
+  const Background({
+    super.key,
+    required this.child
+  });
 
   @override
   Widget build(BuildContext context) {
-    return DynamicBg(
-      duration: const Duration(seconds: 35),
-      painterData: LavaPainterData(
-        width: 250.0,
-        widthTolerance: 75.0,
-        growAndShrink: true,
-        growthRate: 10.0,
-        growthRateTolerance: 5.0,
-        blurLevel: 25.0,
-        numBlobs: 5,
-        backgroundColor: Color.fromRGBO(88, 81, 219, 1),
-        colors: [
-          Color.fromRGBO(88, 81, 219, 1),
-          Color.fromRGBO(131, 58, 180, 1),
-          Color.fromRGBO(193, 53, 132, 1),
-          Color.fromRGBO(225, 48, 108, 1),
-          Color.fromRGBO(253, 29, 29, 1),
-          Color.fromRGBO(245, 96, 64, 1),
-          Color.fromRGBO(247, 119, 55, 1),
-          Color.fromRGBO(252, 175, 69, 1),
-          Color.fromRGBO(255, 220, 128, 1),
-        ],
-        allSameColor: false,
-        fadeBetweenColors: true,
-        changeColorsTogether: false,
-        speed: 20.0,
-        speedTolerance: 5.0,
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF2A2D3E),
+            Color(0xFF1C1E2A),
+          ],
+        ),
       ),
-      child: Container(),
+      child: Stack(
+        children: [
+          // Top right abstract shape
+          Positioned(
+            top: -80,
+            right: -100,
+            child: _buildBlurredCircle(
+              size: 220,
+              color: const Color(0xFF6C63FF).withAlpha(128),
+            ),
+          ),
+          
+          // Bottom left abstract shape
+          Positioned(
+            bottom: -60,
+            left: -70,
+            child: _buildBlurredCircle(
+              size: 180,
+              color: const Color(0xFF9C27B0).withAlpha(77),
+            ),
+          ),
+          
+          // Small accent circles
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.3,
+            right: 40,
+            child: _buildBlurredCircle(
+              size: 50,
+              color: const Color(0xFF03A9F4).withAlpha(77),
+            ),
+          ),
+          
+          Positioned(
+            bottom: MediaQuery.of(context).size.height * 0.25,
+            left: 60,
+            child: _buildBlurredCircle(
+              size: 70,
+              color: const Color(0xFFFF9800).withAlpha(51),
+            ),
+          ),
+          
+          // Content
+          child,
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildBlurredCircle({required double size, required Color color}) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+        boxShadow: [
+          BoxShadow(
+            color: color.withAlpha(128),
+            blurRadius: 30,
+            spreadRadius: 10,
+          ),
+        ],
+      ),
     );
   }
 }
