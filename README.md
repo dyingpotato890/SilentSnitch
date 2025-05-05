@@ -2,7 +2,7 @@
 
 <br/>
 
-![WatchWise Logo](https://github.com/dyingpotato890/SilentSnitch/blob/main/assets/img/logo.png)
+![WatchWise Logo](https://github.com/dyingpotato890/SilentSnitch/blob/main/assets/img/logo%20-%20white.png)
 
 <br/>
 
@@ -14,22 +14,18 @@
 
 **Currently, SilentSnitch is not available on the Google Play Store.**
 
-You can download the latest version of the app after the GitHub Actions build process is complete. A direct download link will be provided here once available. Please stay tuned!
+A direct download link is provided here:
 
 <p align="center">
-  <a href="https://github.com/dyingpotato890/SilentSnitch/releases/latest/download/SilentSnitch.apk">
+  <a href="https://drive.google.com/file/d/1oExP5McAzG1FhD1G4IzddXD-AAOsHcF9/view?usp=sharing">
     <img src="https://img.shields.io/badge/⬇️ Download%20APK-blue?style=for-the-badge" alt="Download SilentSnitch" />
   </a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/github/downloads/dyingpotato890/SilentSnitch/total?style=flat-square" alt="Total Downloads">
 </p>
 
 
 ---
 
-## 🚀 Features
+## Features
 
 - 🔍 Detect Instagram accounts that unfollowed you
 - 🛡️ 100% secure — **no Instagram login or password required**
@@ -39,6 +35,15 @@ You can download the latest version of the app after the GitHub Actions build pr
 
 **Important Note:** Since the app doesn't connect directly to Instagram or require login, it relies on you manually providing your follower data. It cannot retroactively identify unfollowers from before your first data update.
 
+---
+
+### Privacy
+SilentSnitch is designed with your privacy in mind.
+
+- **No Login Required**: We never ask for your Instagram username or password.
+- **Local Data Storage**: All follower data is stored locally on your device and is not transmitted externally.
+- **No Third-Party Access**: The app does not interact with any third-party services to access your Instagram data.
+  
 ---
 
 ## How To Use SilentSnitch
@@ -100,21 +105,7 @@ flutter run
 
 ---
 
-### License
-This project is licensed under the MIT License.   
-
----
-
-### Privacy
-SilentSnitch is designed with your privacy in mind.
-
-- **No Login Required**: We never ask for your Instagram username or password.
-- **Local Data Storage**: All follower data is stored locally on your device and is not transmitted externally.
-- **No Third-Party Access**: The app does not interact with any third-party services to access your Instagram data.
-
----
-
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests. Please follow these steps:
 
@@ -134,3 +125,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests. Ple
 5. Submit a pull request
 
 ---
+
+## License
+This project is licensed under the GPL-3.0 License. See the `LICENSE` file for details.  
