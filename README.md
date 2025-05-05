@@ -17,7 +17,7 @@
 A direct download link is provided here:
 
 <p align="center">
-  <a href="https://rebrand.ly/p7t5s88">
+  <a href="https://rebrand.ly/81d3ea">
     <img src="https://img.shields.io/badge/⬇ Download%20APK-green?style=for-the-badge" alt="Download SilentSnitch" />
   </a>
 </p>
