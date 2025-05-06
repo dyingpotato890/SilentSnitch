@@ -22,6 +22,9 @@ A direct download link is provided here:
   </a>
 </p>
 
+<p align="center">
+  <strong>Loved it? ⭐️ Show your support by starring the repo!</strong>
+</p>
 
 ---
 
@@ -37,7 +40,7 @@ A direct download link is provided here:
 
 ---
 
-### Privacy
+## Privacy
 SilentSnitch is designed with your privacy in mind.
 
 - **No Login Required**: We never ask for your Instagram username or password.
