@@ -12,6 +12,9 @@ class DisplayPage extends StatefulWidget {
 }
 
 class _DisplayPageState extends State<DisplayPage> {
+  // State for filtering celebrities
+  bool _hideCelebrities = false;
+
   // URL launcher
   void _launchUrl(String url) async {
     try {
@@ -26,9 +29,22 @@ class _DisplayPageState extends State<DisplayPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get Usernames And Links
+    // Get Usernames, Links and Verified status
     final List<String> usernames = widget.unfollowers["Username"] ?? [];
     final List<String> links = widget.unfollowers["Link"] ?? [];
+    final List<String> verified = widget.unfollowers["Verified"] ?? [];
+
+    // Filter out celebrities if the toggle is on
+    List<String> filteredUsernames = [];
+    List<String> filteredLinks = [];
+
+    for (int i = 0; i < usernames.length; i++) {
+      if (_hideCelebrities && verified[i] == "Yes") {
+        continue;
+      }
+      filteredUsernames.add(usernames[i]);
+      filteredLinks.add(links[i]);
+    }
 
     var media = MediaQuery.sizeOf(context);
 
@@ -50,15 +66,17 @@ class _DisplayPageState extends State<DisplayPage> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
+                        color: Colors.white.withAlpha(38),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                          size: 20,
+                        icon: Center(
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),
@@ -77,66 +95,111 @@ class _DisplayPageState extends State<DisplayPage> {
                     ),
 
                     // Empty space to balance the header
-                    SizedBox(width: 48),
+                    const SizedBox(width: 48),
                   ],
                 ),
 
                 SizedBox(height: media.height * 0.028), // 24
                 
-                // Results counter
-                Container(
-                  height: 50,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        const Color(0xFF6C63FF),
-                        const Color(0xFF6C63FF).withOpacity(0.8),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF6C63FF).withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
+                // Filter toggle and Results counter
+                Row(
+                  children: [
+                    // Celebrity filter toggle
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withAlpha(20),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: Colors.white.withAlpha(51),
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            const Text(
+                              'Hide Celebrities',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Ubuntu',
+                                fontSize: 14,
+                              ),
+                            ),
+                            const Spacer(),
+                            Switch(
+                              value: _hideCelebrities,
+                              onChanged: (value) {
+                                setState(() {
+                                  _hideCelebrities = value;
+                                });
+                              },
+                              activeColor: const Color(0xFF6C63FF),
+                              activeTrackColor: const Color(0xFF6C63FF).withAlpha(102),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-
-                  child: Center(
-                    child: Text(
-                      '${usernames.length} Accounts Found',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        fontFamily: 'Ubuntu',
-                        letterSpacing: 0.5,
+                    ),
+                    
+                    const SizedBox(width: 12),
+                    
+                    // Results counter
+                    Container(
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFF6C63FF),
+                            const Color(0xFF6C63FF).withAlpha(204),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(14),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF6C63FF).withAlpha(102),
+                            spreadRadius: 1,
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${filteredUsernames.length} Accounts',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            fontFamily: 'Ubuntu',
+                            letterSpacing: 0.5,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
 
-                SizedBox(height: media.height * 0.018), // 16
+                SizedBox(height: media.height * 0.018),
                 
                 // Results list
                 Expanded(
-                  child: usernames.isEmpty
+                  child: filteredUsernames.isEmpty
                       // Empty state
                       ? Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.08),
+                            color: Colors.white.withAlpha(20),
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(
-                              color: Colors.white.withOpacity(0.1),
+                              color: Colors.white.withAlpha(25),
                               width: 1,
                             ),
                           ),
@@ -145,7 +208,7 @@ class _DisplayPageState extends State<DisplayPage> {
                             children: [
                               Icon(
                                 Icons.check_circle_outline,
-                                color: Colors.white.withOpacity(0.5),
+                                color: Colors.white.withAlpha(128),
                                 size: 64,
                               ),
                               const SizedBox(height: 16),
@@ -160,9 +223,11 @@ class _DisplayPageState extends State<DisplayPage> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'Everyone is following you back!',
+                                _hideCelebrities 
+                                    ? 'Only celebrity accounts don\'t follow back' 
+                                    : 'Everyone is following you back!',
                                 style: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withAlpha(179),
                                   fontSize: 14,
                                   fontFamily: 'Ubuntu',
                                 ),
@@ -178,18 +243,18 @@ class _DisplayPageState extends State<DisplayPage> {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: [
-                                Colors.white.withOpacity(0.18),
-                                Colors.white.withOpacity(0.08),
+                                Colors.white.withAlpha(46),
+                                Colors.white.withAlpha(20),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(
-                              color: Colors.white.withOpacity(0.2),
+                              color: Colors.white.withAlpha(51),
                               width: 1.5,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withAlpha(38),
                                 blurRadius: 15,
                                 offset: const Offset(0, 5),
                               ),
@@ -197,27 +262,31 @@ class _DisplayPageState extends State<DisplayPage> {
                           ),
 
                           child: ListView.builder(
-                            itemCount: usernames.length,
+                            itemCount: filteredUsernames.length,
                             itemBuilder: (context, index) {
-                              final username = usernames[index];
-                              final link = links[index];
+                              final username = filteredUsernames[index];
+                              final link = filteredLinks[index];
                               final hasLink = link.isNotEmpty;
+                              
+                              // Find the original index to get verified status
+                              final originalIndex = usernames.indexOf(username);
+                              final isCelebrity = originalIndex != -1 && verified[originalIndex] == "Yes";
 
                               return GestureDetector(
-                                onTap: hasLink ? () => _launchUrl(links[index]) : null,
+                                onTap: hasLink ? () => _launchUrl(link) : null,
 
                                 child: Container(
                                   margin: const EdgeInsets.only(bottom: 12),
                                   padding: const EdgeInsets.all(16),
                                   decoration: BoxDecoration(
                                     color: hasLink 
-                                        ? Colors.white.withOpacity(0.1)
-                                        : Colors.white.withOpacity(0.07),
+                                        ? Colors.white.withAlpha(25)
+                                        : Colors.white.withAlpha(18),
                                     borderRadius: BorderRadius.circular(16),
                                     border: Border.all(
                                       color: hasLink 
-                                          ? const Color(0xFF6C63FF).withOpacity(0.3)
-                                          : Colors.white.withOpacity(0.1),
+                                          ? const Color(0xFF6C63FF).withAlpha(77)
+                                          : Colors.white.withAlpha(25),
                                       width: 1,
                                     ),
                                   ),
@@ -254,20 +323,42 @@ class _DisplayPageState extends State<DisplayPage> {
                                       SizedBox(width: media.width * 0.035),
 
                                       Expanded(
-                                        child: Text(
-                                          username,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontFamily: 'Ubuntu',
-                                          ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              username,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: 'Ubuntu',
+                                              ),
+                                            ),
+                                            if (isCelebrity) ...[
+                                              const SizedBox(width: 5),
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(
+                                                  horizontal: 2,
+                                                  vertical: 2,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: const Color(0xFF6C63FF).withAlpha(51),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                                child: Icon(
+                                                      Icons.verified,
+                                                      color: Colors.white,
+                                                      size: 14,
+                                                    )
+                                              ),
+                                            ],
+                                          ],
                                         ),
                                       ),
                                       
                                       if (hasLink)
                                         Icon(
                                           Icons.open_in_new,
-                                          color: Colors.white.withOpacity(0.6),
+                                          color: Colors.white.withAlpha(153),
                                           size: 18,
                                         ),
                                     ],
