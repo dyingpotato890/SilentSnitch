@@ -30,11 +30,10 @@ A direct download link is provided here:
 
 ## Features
 
-- 🔍 Detect Instagram accounts that unfollowed you
-- 🛡️ 100% secure — **no Instagram login or password required**
-- 🧠 Smart tracking with local comparison
-- 💾 Lightweight and offline-first
-- 📱 Built using Flutter for cross-platform support
+- Detect Instagram accounts that unfollowed you
+- 100% secure — **no Instagram login or password required**
+- Smart tracking with local comparison
+- Lightweight and offline-first
 
 **Important Note:** Since the app doesn't connect directly to Instagram or require login, it relies on you manually providing your follower data. It cannot retroactively identify unfollowers from before your first data update.
 
