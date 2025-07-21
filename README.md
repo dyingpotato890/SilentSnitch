@@ -78,5 +78,28 @@ Follow these two simple steps to start tracking your unfollowers:
 
 ---
 
+## Contributing
+
+We welcome contributions from the community! To contribute:
+
+1. **Fork** this repository.
+2. **Clone** your fork:  
+   ```bash
+   git clone https://github.com/your-username/SilentSnitch.git
+3. Create a **new branch** for your feature or fix:
+   ```bash
+   git checkout -b your-feature-name
+  
+5. Make your changes and commit them with clear messages.
+6. Push to your fork:
+   ```bash
+   git push origin your-feature-name
+
+8. Open a Pull Request to the main branch of this repository.
+
+⚠️ Note: All pull requests require approval before they are merged. Please make sure your code follows the existing style and includes appropriate documentation if needed.
+
+---
+
 ## License
 This project is licensed under the GPL-3.0 License. See the `LICENSE` file for details.  
