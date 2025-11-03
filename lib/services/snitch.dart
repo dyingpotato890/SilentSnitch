@@ -27,12 +27,22 @@ class Snitch {
     List<String> celebrity = obj.allCeleb();
 
     for (var i in followersData) {
-      followersList.add(i["string_list_data"][0]['value']);
+      final value = i["string_list_data"]?[0]?['value'];
+      if (value != null) {
+        followersList.add(value);
+      }
     }
 
     for (var i in followingData["relationships_following"]) {
-      followingList.add(i["string_list_data"][0]['value']);
-      followingHREF.add(i["string_list_data"][0]['href']);
+      final title = i["title"];
+      final href = i["string_list_data"]?[0]?['href'];
+      
+      if (title != null) {
+        followingList.add(title);
+      }
+      if (href != null) {
+        followingHREF.add(href);
+      }
     }
 
     // Find Unfollowers
